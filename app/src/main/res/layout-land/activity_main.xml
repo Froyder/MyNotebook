@@ -58,12 +58,12 @@
         <fragment
             android:id="@+id/text_container"
             android:name="com.example.mynotebook.NoteText"
-            android:layout_weight="1"
-            android:layout_marginEnd="10dp"
-            android:layout_marginStart="10dp"
             android:layout_width="300dp"
             android:layout_height="150dp"
-            tools:layout="@layout/fragment_note_text"/>
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            tools:layout="@layout/fragment_note_text" />
     </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
