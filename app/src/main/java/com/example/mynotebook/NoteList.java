@@ -35,6 +35,7 @@ public class NoteList extends Fragment {
     private void initList(View view) {
         LinearLayout layoutView = (LinearLayout) view;
         String[] notes = getResources().getStringArray(R.array.notes_list);
+        String [] details = getResources().getStringArray(R.array.notes_text);
 
         // В этом цикле создаём элемент TextView,
         // заполняем его значениями,
@@ -46,7 +47,7 @@ public class NoteList extends Fragment {
             tv.setTextSize(15);
             layoutView.addView(tv);
             final int fi = i;
-            tv.setOnClickListener(v -> tv.setText(String.valueOf(fi)));
+            tv.setOnClickListener(v -> tv.setText(details[fi]));
         }
     }
 
