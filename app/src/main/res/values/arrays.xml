@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="notes_list">
+        <item>Первая заметка</item>
+        <item>Вторая заметка</item>
+        <item>Третья заметка</item>
+        <item>Четвертая заметка</item>
+    </string-array>
+
+    <string-array name="notes_text">
+        <item>Сегодня холодно</item>
+        <item>Завтра будет тепло</item>
+        <item>Послезавтра будет жарко</item>
+        <item>На выхожных выпадет снег</item>
+    </string-array>
+
+</resources>
