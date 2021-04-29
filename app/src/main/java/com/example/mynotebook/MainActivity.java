@@ -11,6 +11,8 @@ import androidx.fragment.app.FragmentManager;
 
 public class MainActivity extends FragmentActivity {
 
+    static String details;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,18 +56,14 @@ public class MainActivity extends FragmentActivity {
 
         if (!isLandscape) {
             Fragment mainFragment = fM.findFragmentById(R.id.container);
-            ((TextView) mainFragment.getView().findViewById(R.id.textView))
-                    .setText("Access to MainFragment from Activity");
 
         } else {
             Fragment leftFragment = fM.findFragmentById(R.id.note_list);
-            ((TextView) leftFragment.getView().findViewById(R.id.textView))
-                    .setText("Access to LeftFragment from Activity");
 
             Fragment rightFragment = fM.findFragmentById(R.id.text_container);
-            assert rightFragment != null;
-            ((TextView) rightFragment.getView().findViewById(R.id.textView))
-                    .setText("Access to RightFragment from Activity");
+
+            ((TextView) rightFragment.getView().findViewById(R.id.note_text))
+                    .setText(details);
         }
     };
 }

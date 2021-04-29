@@ -43,10 +43,11 @@ public class NoteList extends Fragment {
             String note = notes[i];
             TextView tv = new TextView(getContext());
             tv.setText(note);
-            tv.setTextSize(15);
+            tv.setTextSize(20);
             layoutView.addView(tv);
             final int fi = i;
-            tv.setOnClickListener(v -> tv.setText(details[fi]));
+            tv.setOnClickListener(v ->
+                    MainActivity.details = details[fi]);
         }
     }
 
