@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -33,7 +32,7 @@ public class NoteList extends Fragment {
 
     // создаём список городов на экране из массива в ресурсах
     private void initList(View view) {
-        LinearLayout layoutView = (LinearLayout) view;
+        LinearLayout layoutView = view.findViewById(R.id.list_layout);
         String[] notes = getResources().getStringArray(R.array.notes_list);
         String [] details = getResources().getStringArray(R.array.notes_text);
 
@@ -41,9 +40,9 @@ public class NoteList extends Fragment {
         // заполняем его значениями,
         // и добавляем на экран.
         for(int i=0; i < notes.length; i++){
-            String city = notes[i];
+            String note = notes[i];
             TextView tv = new TextView(getContext());
-            tv.setText(city);
+            tv.setText(note);
             tv.setTextSize(15);
             layoutView.addView(tv);
             final int fi = i;
