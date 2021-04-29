@@ -45,9 +45,9 @@
         app:layout_constraintStart_toStartOf="parent"
         android:baselineAligned="false">
 
-        <fragment
-            android:id="@+id/note_list"
-            android:name="com.example.mynotebook.NoteList"
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/list_container"
+            android:name="com.example.mynotebook.ListFragment"
             android:layout_width="300dp"
             android:layout_weight="1"
             android:layout_marginStart="10dp"
@@ -55,9 +55,9 @@
             android:layout_height="150dp"
             tools:layout="@layout/fragment_note_list" />
 
-        <fragment
+        <androidx.fragment.app.FragmentContainerView
             android:id="@+id/text_container"
-            android:name="com.example.mynotebook.NoteText"
+            android:name="com.example.mynotebook.TextFragment"
             android:layout_width="300dp"
             android:layout_height="150dp"
             android:layout_marginStart="10dp"

@@ -1,31 +1,51 @@
 package com.example.mynotebook;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class Note {
-    private static ArrayList<Note> noteArrayList;
-    private int name;
-    private String noteName;
-    private String noteText;
+public class Note implements Parcelable {
+
+    private int noteName;
+    private int noteText;
     Calendar noteDate;
 
     public Note () {
     }
 
-    public int getName() {
-        return name;
+    public Note (int noteName, int noteText) {
+        this.noteName = noteName;
+        this.noteText = noteText;
     }
 
     public Note(int name) {
 
     }
 
-    public String getNoteName() {
+    protected Note(Parcel in) {
+        noteName = in.readInt();
+        noteText = in.readInt();
+    }
+
+    public static final Creator<Note> CREATOR = new Creator<Note>() {
+        @Override
+        public Note createFromParcel(Parcel in) {
+            return new Note(in);
+        }
+
+        @Override
+        public Note[] newArray(int size) {
+            return new Note[size];
+        }
+    };
+
+    public int getNoteName() {
         return noteName;
     }
 
-    public String getNoteText() {
+    public int getNoteText() {
         return noteText;
     }
 
@@ -33,23 +53,20 @@ public class Note {
         return noteDate;
     }
 
-    public Note (String noteName, String noteText, Calendar noteDate) {
+    public Note (int noteName, int noteText, Calendar noteDate) {
         this.noteName = noteName;
         this.noteText = noteText;
         this.noteDate = noteDate;
     }
 
-    public void addNote () {
-        Note note = new Note ("", "", Calendar.getInstance());
-        addNoteToList(note);
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
-    public void addNoteToList (Note note) {
-        noteArrayList.add(note);
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(noteName);
+        dest.writeInt(noteText);
     }
-
-    public static ArrayList<Note> showNotesList() {
-        return noteArrayList;
-    }
-
 }

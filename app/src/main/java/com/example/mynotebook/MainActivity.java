@@ -2,68 +2,66 @@ package com.example.mynotebook;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
-
-public class MainActivity extends FragmentActivity {
-
-    static String details;
+public class MainActivity extends AppCompatActivity implements ListFragment.OnNoteClicked {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        findViewById(R.id.add_button).setOnClickListener(addButtonListener);
-
-        initView();
-
-    }
-
-    public void initView () {
-
-        boolean isLandscape = getResources().getBoolean(R.bool.isLandscape);
-
-        FragmentManager fM = getSupportFragmentManager();
+        Boolean isLandscape = getResources().getBoolean(R.bool.isLandscape);
 
         if (!isLandscape) {
-            Fragment mainFragment = fM.findFragmentById(R.id.container);
+            FragmentManager fM = getSupportFragmentManager();
 
-            if (mainFragment == null) {
+            Fragment fragment = fM.findFragmentById(R.id.container);
+
+            if (fragment == null) {
+
                 fM.beginTransaction()
-                        .replace(R.id.container, new NoteList())
+                        .replace(R.id.container, new ListFragment())
                         .commit();
             }
-
         } else {
-            Fragment textFragment = fM.findFragmentById(R.id.text_container);
+            FragmentManager fM = getSupportFragmentManager();
+            Fragment fragment = fM.findFragmentById(R.id.list_container);
+            if (fragment == null) {
 
-            if (textFragment != null) {
                 fM.beginTransaction()
-                        .replace(R.id.text_container, new NoteText())
+                        .replace(R.id.list_container, new ListFragment())
                         .commit();
             }
         }
     }
 
-    View.OnClickListener addButtonListener = v -> {
-        boolean isLandscape = getResources().getBoolean(R.bool.isLandscape);
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onNoteClicked(Note note) {
+        Boolean isLandscape = getResources().getBoolean(R.bool.isLandscape);
+
         FragmentManager fM = getSupportFragmentManager();
 
-        if (!isLandscape) {
-            Fragment mainFragment = fM.findFragmentById(R.id.container);
+        if (isLandscape) {
+            fM.beginTransaction()
+                    .replace(R.id.text_container, TextFragment.newInstance(note))
+                    .commit();
 
         } else {
-            Fragment leftFragment = fM.findFragmentById(R.id.note_list);
-
-            Fragment rightFragment = fM.findFragmentById(R.id.text_container);
-
-            ((TextView) rightFragment.getView().findViewById(R.id.note_text))
-                    .setText(details);
+            fM.beginTransaction()
+                    .replace(R.id.container, TextFragment.newInstance(note))
+                    .addToBackStack(null)
+                    .commit();
         }
-    };
+
+    }
 }

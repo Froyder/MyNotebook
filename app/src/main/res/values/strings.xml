@@ -6,6 +6,20 @@
     <string name="note_text">Текст заметки</string>
     <string name="add_note">Добавить заметку</string>
 
-    <string name="fst">Первая заметка</string>
-    <string name="scn">Вторая заметка</string>
+    <string name="note1">Первая заметка</string>
+    <string name="note2">Вторая заметка</string>
+    <string name="note3">Третья заметка</string>
+    <string name="note4">Четвертая заметка</string>
+    <string name="note5">Пятая заметка</string>
+    <string name="note6">Шестая заметка</string>
+    <string name="note7">Седьмая заметка</string>
+
+    <string name="text1">Сегодня холодно</string>
+    <string name="text2">Завтра будет тепло</string>
+    <string name="text3">Послезавтра будет жарко</string>
+    <string name="text4">На выходных выпадет снег</string>
+    <string name="text5">Текст пятой записки</string>
+    <string name="text6">Текст шестой записки</string>
+    <string name="text7">Седьмая записка - последняя!</string>
+
 </resources>
