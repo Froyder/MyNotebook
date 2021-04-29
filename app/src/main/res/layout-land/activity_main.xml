@@ -49,21 +49,21 @@
             android:id="@+id/list_container"
             android:name="com.example.mynotebook.ListFragment"
             android:layout_width="300dp"
-            android:layout_weight="1"
-            android:layout_marginStart="10dp"
-            android:layout_marginHorizontal="10dp"
             android:layout_height="150dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
             tools:layout="@layout/fragment_note_list" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/text_container"
-            android:name="com.example.mynotebook.TextFragment"
             android:layout_width="300dp"
             android:layout_height="150dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_weight="1"
             tools:layout="@layout/fragment_note_text" />
+
     </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
