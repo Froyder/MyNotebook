@@ -22,4 +22,5 @@
     <string name="text6">Текст шестой записки</string>
     <string name="text7">Седьмая записка - последняя!</string>
 
+    <string name="toolbar_title">Toolbar</string>
 </resources>
