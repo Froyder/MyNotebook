@@ -1,7 +1,12 @@
 package com.example.mynotebook;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +17,8 @@ import androidx.fragment.app.FragmentManager;
 
 public class MainActivity extends AppCompatActivity implements ListFragment.OnNoteClicked {
 
+    Button action;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,6 +26,34 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnNo
 
         initView();
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.menu, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        FragmentManager fM = getSupportFragmentManager();
+
+        if (item.getItemId() == R.id.action_one) {
+            fM.beginTransaction()
+                    .replace(R.id.container, new AboutFragment())
+                    .addToBackStack(null)
+                    .commit();
+        }
+
+        if (item.getItemId() == R.id.action_two) {
+            Toast.makeText(this, "Action Two", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public void initView () {
