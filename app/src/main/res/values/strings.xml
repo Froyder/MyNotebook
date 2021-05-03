@@ -23,5 +23,7 @@
     <string name="text7">Седьмая записка - последняя!</string>
 
     <string name="toolbar_title">Мои заметки</string>
-    <string name="about">О приложении</string>
+    <string name="about_button">О приложении</string>
+    <string name="about_app">Приложение "Мои заметки", версия 0.1. Дальше будет лучше!</string>
+    <string name="back_button">Back</string>
 </resources>

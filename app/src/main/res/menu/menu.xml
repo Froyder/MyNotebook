@@ -14,17 +14,24 @@
         android:layout_height="wrap_content" />
 
     <item
-        android:id="@+id/action_one"
+        android:id="@+id/about_button"
         app:showAsAction="never"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:title="@string/about" />
+        android:title="@string/about_button" />
 
     <item
-        android:id="@+id/action_two"
+        android:id="@+id/back_button"
+        app:showAsAction="ifRoom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="@string/back_button" />
+
+    <item
+        android:id="@+id/add_note"
         android:icon="@drawable/ic_launcher_foreground"
         app:showAsAction="ifRoom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:title="a" />
+        android:title="@string/add_note" />
 </menu>
