@@ -39,13 +39,23 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnNo
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
+        Boolean isLandscape = getResources().getBoolean(R.bool.isLandscape);
         FragmentManager fM = getSupportFragmentManager();
 
         if (item.getItemId() == R.id.action_one) {
-            fM.beginTransaction()
-                    .replace(R.id.container, new AboutFragment())
-                    .addToBackStack(null)
-                    .commit();
+            if (!isLandscape) {
+                fM.beginTransaction()
+                        .replace(R.id.container, new AboutFragment())
+                        .addToBackStack(null)
+                        .commit();
+
+            } else {
+                fM.beginTransaction()
+                        .replace(R.id.text_container, new AboutFragment())
+                        .addToBackStack(null)
+                        .commit();
+
+            }
         }
 
         if (item.getItemId() == R.id.action_two) {

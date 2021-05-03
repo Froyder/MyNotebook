@@ -5,8 +5,8 @@
     android:layout_width="match_parent">
 
     <item
-        android:id="@+id/add_note"
-        android:title="@+id/add_note"
+        android:id="@+id/search_note"
+        android:title="@+id/search_note"
         android:icon="@android:drawable/ic_menu_search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="ifRoom"
@@ -15,14 +15,16 @@
 
     <item
         android:id="@+id/action_one"
-        android:icon="@drawable/ic_launcher_foreground"
-        app:showAsAction="ifRoom"
+        app:showAsAction="never"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:title="@string/about" />
 
     <item
         android:id="@+id/action_two"
-        app:showAsAction="never"
+        android:icon="@drawable/ic_launcher_foreground"
+        app:showAsAction="ifRoom"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:title="a" />
 </menu>
