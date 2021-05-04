@@ -26,4 +26,14 @@
     <string name="about_button">О приложении</string>
     <string name="about_app">Приложение "Мои заметки", версия 0.1. Дальше будет лучше!</string>
     <string name="back_button">Back</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="search">Поиск</string>
+
+    <string-array name="side_menu">
+        <item>Добавить заметку</item>
+        <item>Поиск по заметкам</item>
+        <item>О приложении</item>
+    </string-array>
 </resources>

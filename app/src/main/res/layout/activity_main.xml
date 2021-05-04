@@ -27,7 +27,9 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/list_header"
-        tools:layout="@layout/fragment_note_list"/>
+        tools:layout="@layout/fragment_note_list">
+
+    </androidx.fragment.app.FragmentContainerView>
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"

@@ -1,22 +1,33 @@
 package com.example.mynotebook;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.google.android.material.navigation.NavigationView;
+
 public class MainActivity extends AppCompatActivity implements ListFragment.OnNoteClicked {
+
+    Boolean isLandscape;
+    FragmentManager fM;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.drawer_layout);
+
+        isLandscape = getResources().getBoolean(R.bool.isLandscape);
+        fM = getSupportFragmentManager();
+        toolbar = findViewById(R.id.toolbar);
 
         initView();
     }
@@ -29,9 +40,6 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnNo
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        boolean isLandscape = getResources().getBoolean(R.bool.isLandscape);
-        FragmentManager fM = getSupportFragmentManager();
 
         if (item.getItemId() == R.id.about_button) {
             if (!isLandscape) {
@@ -69,17 +77,13 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnNo
     }
 
     public void initView () {
-        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        boolean isLandscape = getResources().getBoolean(R.bool.isLandscape);
+        initSideMenu();
 
         if (!isLandscape) {
-            FragmentManager fM = getSupportFragmentManager();
             Fragment fragment = fM.findFragmentById(R.id.container);
 
             if (fragment == null) {
-
                 fM.beginTransaction()
                         .replace(R.id.container, new ListFragment())
                         .commit();
@@ -96,6 +100,53 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnNo
         }
     }
 
+    public void initSideMenu () {
+        final DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar,
+                R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView sideMenu = findViewById(R.id.side_menu);
+        sideMenu.setNavigationItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.about_button) {
+                if (!isLandscape) {
+                    fM.beginTransaction()
+                            .replace(R.id.container, new AboutFragment())
+                            .addToBackStack(null)
+                            .commit();
+                } else {
+                    fM.beginTransaction()
+                            .replace(R.id.text_container, new AboutFragment())
+                            .addToBackStack(null)
+                            .commit();
+                }
+            }
+
+            if (item.getItemId() == R.id.add_note) {
+                if (!isLandscape) {
+                    fM.beginTransaction()
+                            .replace(R.id.container, new AddNoteFragment())
+                            .addToBackStack(null)
+                            .commit();
+                } else {
+                    fM.beginTransaction()
+                            .replace(R.id.text_container, new AddNoteFragment())
+                            .addToBackStack(null)
+                            .commit();
+                }
+            }
+
+            if (item.getItemId() == R.id.back_button) {
+                fM.popBackStack();
+            }
+            drawer.close();
+            return false;
+        });
+    }
+
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -103,9 +154,6 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnNo
 
     @Override
     public void onNoteClicked(Note note) {
-        boolean isLandscape = getResources().getBoolean(R.bool.isLandscape);
-
-        FragmentManager fM = getSupportFragmentManager();
 
         if (isLandscape) {
             fM.beginTransaction()

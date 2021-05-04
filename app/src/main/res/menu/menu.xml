@@ -6,12 +6,12 @@
 
     <item
         android:id="@+id/search_note"
-        android:title="@+id/search_note"
+        android:title="@string/search"
         android:icon="@android:drawable/ic_menu_search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
-        app:showAsAction="ifRoom"
+        app:showAsAction="always"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"/>
 
     <item
         android:id="@+id/about_button"
@@ -22,15 +22,15 @@
 
     <item
         android:id="@+id/back_button"
-        app:showAsAction="ifRoom"
+        app:showAsAction="always"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:title="@string/back_button" />
 
     <item
         android:id="@+id/add_note"
-        android:icon="@drawable/ic_launcher_foreground"
-        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_baseline_add_24"
+        app:showAsAction="always"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:title="@string/add_note" />
