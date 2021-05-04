@@ -31,6 +31,9 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="search">Поиск</string>
     <string name="welcome">Добро пожаловать в \'Мои заметки\'</string>
+    <string name="name_hint">Добавьте заголовок заметки</string>
+    <string name="text_hint">Добавьте текст заметки</string>
+    <string name="new_note">Новая заметка</string>
 
     <string-array name="side_menu">
         <item>Добавить заметку</item>
