@@ -5,21 +5,23 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 public class ListFragment extends Fragment {
 
     LinearLayout layoutView;
+    NotesAdapter adapter;
+    RecyclerView notesList;
 
     public interface OnNoteClicked {
         void onNoteClicked (Note note);
@@ -61,6 +63,34 @@ public class ListFragment extends Fragment {
     // создаём список заметок из репозитория
     private void initList(View view) {
 
+        adapter = new NotesAdapter();
+
+        /*
+        adapter.setClickListener(new NotesAdapter.OnNoteClicked() {
+            @Override
+            public void onNoteClicked(Note note) {
+                Toast.makeText(NotesListActivity.this, note.getTitle(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+         */
+
+        MyViewModel model = new ViewModelProvider(requireActivity()).get(MyViewModel.class);
+
+        model.getNotes().observe(getActivity(), new Observer<List<Note>>() {
+            @Override
+            public void onChanged (List<Note> notes) {
+                adapter.addData(notes);
+                adapter.notifyDataSetChanged();
+            }
+        });
+
+        notesList = notesList.findViewById(R.id.notes_list);
+        RecyclerView.LayoutManager lm = /*new GridLayoutManager(this, 2);*/new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        notesList.setLayoutManager(lm);
+        notesList.setAdapter(adapter);
+
+        /*
         MyViewModel model = new ViewModelProvider(requireActivity()).get(MyViewModel.class);
         model.getNotes().observe(getActivity(), new Observer<List<Note>>() {
             @Override
@@ -85,13 +115,16 @@ public class ListFragment extends Fragment {
                 }
             }
         });
-
+        */
     }
 
+    /*
     public void openDetails(Note note) {
         if (onNoteClicked != null) {
             onNoteClicked.onNoteClicked(note);
         }
     }
+
+     */
 
 }
