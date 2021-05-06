@@ -19,6 +19,8 @@ import java.util.List;
 
 public class ListFragment extends Fragment {
 
+    LinearLayout layoutView;
+
     public interface OnNoteClicked {
         void onNoteClicked (Note note);
     }
@@ -64,7 +66,8 @@ public class ListFragment extends Fragment {
             @Override
             public void onChanged(List<Note> notes) {
 
-                LinearLayout layoutView = view.findViewById(R.id.list_layout);
+                layoutView = view.findViewById(R.id.list_layout);
+                layoutView.removeAllViews();
 
                 for (Note note : notes){
 
