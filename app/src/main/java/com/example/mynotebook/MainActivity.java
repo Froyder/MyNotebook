@@ -1,49 +1,172 @@
 package com.example.mynotebook;
 
 import android.os.Bundle;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
+import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends AppCompatActivity implements ListFragment.OnNoteClicked {
+
+    boolean isLandscape;
+    FragmentManager fM;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.drawer_layout);
 
-        findViewById(R.id.add_button).setOnClickListener(addButtonListener);
+        isLandscape = getResources().getBoolean(R.bool.isLandscape);
+        fM = getSupportFragmentManager();
+        toolbar = findViewById(R.id.toolbar);
 
-        boolean isLandscape = getResources().getBoolean(R.bool.isLandscape);
+        initView();
+    }
 
-        FragmentManager fM = getSupportFragmentManager();
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
 
-        if (!isLandscape) {
-            Fragment mainFragment = fM.findFragmentById(R.id.container);
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-            if (mainFragment == null) {
+        if (item.getItemId() == R.id.about_button) {
+            if (!isLandscape) {
                 fM.beginTransaction()
-                        .replace(R.id.container, new NoteList())
+                        .replace(R.id.container, new AboutFragment())
+                        .addToBackStack(null)
                         .commit();
-            }
-
-        } else {
-            Fragment textFragment = fM.findFragmentById(R.id.container);
-
-            if (textFragment != null) {
+            } else {
                 fM.beginTransaction()
-                        .replace(R.id.text_container, new NoteText())
+                        .replace(R.id.text_container, new AboutFragment())
+                        .addToBackStack(null)
                         .commit();
             }
         }
 
+        if (item.getItemId() == R.id.add_note) {
+            if (!isLandscape) {
+                fM.beginTransaction()
+                        .replace(R.id.container, new AddNoteFragment())
+                        .addToBackStack(null)
+                        .commit();
+            } else {
+                fM.beginTransaction()
+                        .replace(R.id.text_container, new AddNoteFragment())
+                        .addToBackStack(null)
+                        .commit();
+            }
+        }
+
+        if (item.getItemId() == R.id.back_button) {
+            fM.popBackStack();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
-    View.OnClickListener addButtonListener = v -> {
-        Note note = new Note ();
-        note.addNote();
-    };
+    public void initView () {
+        setSupportActionBar(toolbar);
+        initSideMenu();
 
+        if (!isLandscape) {
+            Fragment fragment = fM.findFragmentById(R.id.container);
+
+            if (fragment == null) {
+                fM.beginTransaction()
+                        .replace(R.id.container, new ListFragment())
+                        .commit();
+            }
+        } else {
+            FragmentManager fM = getSupportFragmentManager();
+            Fragment fragment = fM.findFragmentById(R.id.list_container);
+            if (fragment == null) {
+
+                fM.beginTransaction()
+                        .replace(R.id.list_container, new ListFragment())
+                        .commit();
+            }
+        }
+    }
+
+    public void initSideMenu () {
+        final DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar,
+                R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView sideMenu = findViewById(R.id.side_menu);
+        sideMenu.setNavigationItemSelectedListener(item -> {
+            if (item.getItemId() == R.id.about_button) {
+                if (!isLandscape) {
+                    fM.beginTransaction()
+                            .replace(R.id.container, new AboutFragment())
+                            .addToBackStack(null)
+                            .commit();
+                } else {
+                    fM.beginTransaction()
+                            .replace(R.id.text_container, new AboutFragment())
+                            .addToBackStack(null)
+                            .commit();
+                }
+            }
+
+            if (item.getItemId() == R.id.add_note) {
+                if (!isLandscape) {
+                    fM.beginTransaction()
+                            .replace(R.id.container, new AddNoteFragment())
+                            .addToBackStack(null)
+                            .commit();
+                } else {
+                    fM.beginTransaction()
+                            .replace(R.id.text_container, new AddNoteFragment())
+                            .addToBackStack(null)
+                            .commit();
+                }
+            }
+
+            if (item.getItemId() == R.id.back_button) {
+                fM.popBackStack();
+            }
+            drawer.close();
+            return false;
+        });
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onNoteClicked(Note note) {
+
+        if (isLandscape) {
+            fM.beginTransaction()
+                    .replace(R.id.text_container, TextFragment.newInstance(note))
+                    .addToBackStack(null)
+                    .commit();
+
+        } else {
+            fM.beginTransaction()
+                    .replace(R.id.container, TextFragment.newInstance(note))
+                    .addToBackStack(null)
+                    .commit();
+        }
+
+    }
 }

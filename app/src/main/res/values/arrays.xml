@@ -6,13 +6,18 @@
         <item>Вторая заметка</item>
         <item>Третья заметка</item>
         <item>Четвертая заметка</item>
+        <item>Пятая заметка</item>
+        <item>Шестая заметка</item>
     </string-array>
 
     <string-array name="notes_text">
         <item>Сегодня холодно</item>
         <item>Завтра будет тепло</item>
         <item>Послезавтра будет жарко</item>
-        <item>На выхожных выпадет снег</item>
+        <item>На выходных выпадет снег</item>
+        <item>Текст пятой записки</item>
+        <item>Текст шестой записки</item>
+
     </string-array>
 
 </resources>

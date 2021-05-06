@@ -5,4 +5,40 @@
     <string name="note_list">Список заметок</string>
     <string name="note_text">Текст заметки</string>
     <string name="add_note">Добавить заметку</string>
+
+    <string name="note1">Первая заметка</string>
+    <string name="note2">Вторая заметка</string>
+    <string name="note3">Третья заметка</string>
+    <string name="note4">Четвертая заметка</string>
+    <string name="note5">Пятая заметка</string>
+    <string name="note6">Шестая заметка</string>
+    <string name="note7">Седьмая заметка</string>
+
+    <string name="text1">Сегодня холодно</string>
+    <string name="text2">Завтра будет тепло</string>
+    <string name="text3">Послезавтра будет жарко</string>
+    <string name="text4">На выходных выпадет снег</string>
+    <string name="text5">Текст пятой записки</string>
+    <string name="text6">Текст шестой записки</string>
+    <string name="text7">Седьмая записка - последняя!</string>
+
+    <string name="toolbar_title">Мои заметки</string>
+    <string name="about_button">О приложении</string>
+    <string name="about_app">Приложение "Мои заметки", версия 0.1. Дальше будет лучше!</string>
+    <string name="back_button">Back</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="search">Поиск</string>
+    <string name="welcome">Добро пожаловать в \'Мои заметки\'</string>
+    <string name="name_hint">Добавьте заголовок заметки</string>
+    <string name="text_hint">Добавьте текст заметки</string>
+    <string name="new_note">Новая заметка</string>
+    <string name="new_note_header">Новая заметка</string>
+
+    <string-array name="side_menu">
+        <item>Добавить заметку</item>
+        <item>Поиск по заметкам</item>
+        <item>О приложении</item>
+    </string-array>
 </resources>
