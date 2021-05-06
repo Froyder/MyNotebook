@@ -11,14 +11,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/margin_normal"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" >
 
         <TextView
             android:id="@+id/list_header"
-            android:layout_marginEnd="60dp"
+            android:layout_marginEnd="@dimen/margin_large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/note_list"
@@ -27,7 +27,7 @@
 
         <TextView
             android:id="@+id/text_header"
-            android:layout_marginStart="60dp"
+            android:layout_marginStart="@dimen/margin_large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/note_text"
@@ -38,7 +38,7 @@
         android:id="@+id/fragments_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/margin_normal"
         android:baselineAligned="false"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@id/app_bar"
@@ -53,8 +53,8 @@
             android:name="com.example.mynotebook.ListFragment"
             android:layout_width="300dp"
             android:layout_height="match_parent"
-            android:layout_marginHorizontal="10dp"
-            android:layout_marginStart="10dp"
+            android:layout_marginHorizontal="@dimen/margin_min"
+            android:layout_marginStart="@dimen/margin_min"
             android:layout_weight="1"
             tools:layout="@layout/fragment_note_list" />
 
@@ -62,8 +62,8 @@
             android:id="@+id/text_container"
             android:layout_width="300dp"
             android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginStart="@dimen/margin_min"
+            android:layout_marginEnd="@dimen/margin_min"
             android:layout_weight="1"
             tools:layout="@layout/fragment_note_text" />
 

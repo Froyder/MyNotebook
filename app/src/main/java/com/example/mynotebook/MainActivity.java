@@ -16,7 +16,7 @@ import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements ListFragment.OnNoteClicked {
 
-    Boolean isLandscape;
+    boolean isLandscape;
     FragmentManager fM;
     Toolbar toolbar;
 

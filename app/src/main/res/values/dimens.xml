@@ -1,4 +1,7 @@
 <resources>
     <dimen name="nav_header_height">200dp</dimen>
     <dimen name="nav_header_dimen">42sp</dimen>
+    <dimen name="margin_normal">20dp</dimen>
+    <dimen name="margin_large">60dp</dimen>
+    <dimen name="margin_min">10dp</dimen>
 </resources>

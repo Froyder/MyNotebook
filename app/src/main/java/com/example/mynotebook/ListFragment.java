@@ -72,12 +72,7 @@ public class ListFragment extends Fragment {
             title.setTextSize(20);
             layoutView.addView(listView);
 
-            listView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    openDetails(note);
-                }
-            });
+            listView.setOnClickListener(v -> openDetails(note));
         }
     }
 

@@ -34,6 +34,7 @@
     <string name="name_hint">Добавьте заголовок заметки</string>
     <string name="text_hint">Добавьте текст заметки</string>
     <string name="new_note">Новая заметка</string>
+    <string name="new_note_header">Новая заметка</string>
 
     <string-array name="side_menu">
         <item>Добавить заметку</item>
