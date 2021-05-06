@@ -13,6 +13,7 @@ public class NotesRepository {
             notes.add(new Note("A2", "Some 2 text"));
             notes.add(new Note("A3", "Some 3 text"));
             notes.add(new Note("A4", "Some 4 text"));
+
             return notes;
         }
         return notes;

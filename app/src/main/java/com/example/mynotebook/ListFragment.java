@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,9 +20,10 @@ import java.util.List;
 
 public class ListFragment extends Fragment {
 
-    LinearLayout layoutView;
     NotesAdapter adapter;
     RecyclerView notesList;
+    boolean isLandscape;
+    FragmentManager fM;
 
     public interface OnNoteClicked {
         void onNoteClicked (Note note);
@@ -49,31 +51,27 @@ public class ListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_note_list, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_list_recycler, container, false);
+
+        fM = getParentFragmentManager();
+        isLandscape = getResources().getBoolean(R.bool.isLandscape);
+        adapter = new NotesAdapter();
+        notesList = rootView.findViewById(R.id.notes_list);
+        RecyclerView.LayoutManager lm = /*new GridLayoutManager(this, 2);*/new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        notesList.setLayoutManager(lm);
+        notesList.setAdapter(adapter);
+        return rootView;
     }
 
     // вызывается после создания макета фрагмента, здесь мы проинициализируем список
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         initList(view);
     }
 
     // создаём список заметок из репозитория
     private void initList(View view) {
-
-        adapter = new NotesAdapter();
-
-        /*
-        adapter.setClickListener(new NotesAdapter.OnNoteClicked() {
-            @Override
-            public void onNoteClicked(Note note) {
-                Toast.makeText(NotesListActivity.this, note.getTitle(), Toast.LENGTH_SHORT).show();
-            }
-        });
-
-         */
 
         MyViewModel model = new ViewModelProvider(requireActivity()).get(MyViewModel.class);
 
@@ -85,10 +83,23 @@ public class ListFragment extends Fragment {
             }
         });
 
-        notesList = notesList.findViewById(R.id.notes_list);
-        RecyclerView.LayoutManager lm = /*new GridLayoutManager(this, 2);*/new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        notesList.setLayoutManager(lm);
-        notesList.setAdapter(adapter);
+        adapter.setClickListener(new NotesAdapter.OnNoteClicked() {
+            @Override
+            public void onNoteClicked(Note note) {
+                if (isLandscape) {
+                    fM.beginTransaction()
+                            .replace(R.id.text_container, TextFragment.newInstance(note))
+                            .addToBackStack(null)
+                            .commit();
+
+                } else {
+                    fM.beginTransaction()
+                            .replace(R.id.container, TextFragment.newInstance(note))
+                            .addToBackStack(null)
+                            .commit();
+                }
+            }
+        });
 
         /*
         MyViewModel model = new ViewModelProvider(requireActivity()).get(MyViewModel.class);

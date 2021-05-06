@@ -4,4 +4,5 @@
     <dimen name="margin_normal">20dp</dimen>
     <dimen name="margin_large">60dp</dimen>
     <dimen name="margin_min">10dp</dimen>
+    <dimen name="textsize_large">40sp</dimen>
 </resources>
