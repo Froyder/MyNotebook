@@ -44,7 +44,7 @@ public class TextFragment extends Fragment {
         noteText = view.findViewById(R.id.note_text);
 
         Note note = getArguments().getParcelable(ARG_NOTE);
-        noteText.setText(note.getNoteText());
+        noteText.setText(note.getNoteTextString());
     }
 
 }

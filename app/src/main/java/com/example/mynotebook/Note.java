@@ -12,6 +12,22 @@ public class Note implements Parcelable {
     private int noteText;
     Calendar noteDate;
 
+    public String getNoteNameString() {
+        return noteNameString;
+    }
+
+    public String getNoteTextString() {
+        return noteTextString;
+    }
+
+    private String noteNameString;
+    private String noteTextString;
+
+    public Note(String noteNameString, String noteTextString) {
+        this.noteNameString = noteNameString;
+        this.noteTextString = noteTextString;
+    }
+
     public Note () {
     }
 

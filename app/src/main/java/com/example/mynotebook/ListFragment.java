@@ -12,6 +12,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import java.util.List;
 
@@ -54,26 +56,33 @@ public class ListFragment extends Fragment {
         initList(view);
     }
 
-    // создаём список городов на экране из массива в ресурсах
+    // создаём список заметок из репозитория
     private void initList(View view) {
 
-        List <Note> notes = new NotesRepository().getNotes();
-        LinearLayout layoutView = view.findViewById(R.id.list_layout);
+        MyViewModel model = new ViewModelProvider(requireActivity()).get(MyViewModel.class);
+        model.getNotes().observe(getActivity(), new Observer<List<Note>>() {
+            @Override
+            public void onChanged(List<Note> notes) {
 
-        for (Note note : notes){
+                LinearLayout layoutView = view.findViewById(R.id.list_layout);
 
-            View listView = LayoutInflater.from(requireContext()).inflate(R.layout.item_note, layoutView, false);
-            ImageView image = listView.findViewById(R.id.image);
-            image.setImageResource(R.drawable.ic_launcher_foreground);
+                for (Note note : notes){
 
-            TextView title = listView.findViewById(R.id.note_name);
-            title.setText(note.getNoteName());
+                    View listView = LayoutInflater.from(requireContext()).inflate(R.layout.item_note, layoutView, false);
+                    ImageView image = listView.findViewById(R.id.image);
+                    image.setImageResource(R.drawable.ic_launcher_foreground);
 
-            title.setTextSize(20);
-            layoutView.addView(listView);
+                    TextView title = listView.findViewById(R.id.note_name);
+                    title.setText(note.getNoteNameString());
 
-            listView.setOnClickListener(v -> openDetails(note));
-        }
+                    title.setTextSize(20);
+                    layoutView.addView(listView);
+
+                    listView.setOnClickListener(v -> openDetails(note));
+                }
+            }
+        });
+
     }
 
     public void openDetails(Note note) {

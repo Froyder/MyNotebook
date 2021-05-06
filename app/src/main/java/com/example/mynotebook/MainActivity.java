@@ -11,6 +11,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnNo
     boolean isLandscape;
     FragmentManager fM;
     Toolbar toolbar;
+    MyViewModel model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,8 +30,10 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnNo
         isLandscape = getResources().getBoolean(R.bool.isLandscape);
         fM = getSupportFragmentManager();
         toolbar = findViewById(R.id.toolbar);
+        model = new ViewModelProvider(this).get(MyViewModel.class);
 
         initView();
+
     }
 
     @Override
@@ -76,28 +80,27 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnNo
         return super.onOptionsItemSelected(item);
     }
 
-    public void initView () {
+    public void initView() {
         setSupportActionBar(toolbar);
         initSideMenu();
 
-        if (!isLandscape) {
-            Fragment fragment = fM.findFragmentById(R.id.container);
+            if (!isLandscape) {
+                Fragment fragment = fM.findFragmentById(R.id.container);
 
-            if (fragment == null) {
-                fM.beginTransaction()
-                        .replace(R.id.container, new ListFragment())
-                        .commit();
-            }
-        } else {
-            FragmentManager fM = getSupportFragmentManager();
-            Fragment fragment = fM.findFragmentById(R.id.list_container);
-            if (fragment == null) {
+                if (fragment == null) {
+                    fM.beginTransaction()
+                            .replace(R.id.container, new ListFragment())
+                            .commit();
+                }
+            } else {
+                Fragment fragment = fM.findFragmentById(R.id.list_container);
+                if (fragment == null) {
 
-                fM.beginTransaction()
-                        .replace(R.id.list_container, new ListFragment())
-                        .commit();
+                    fM.beginTransaction()
+                            .replace(R.id.list_container, new ListFragment())
+                            .commit();
+                }
             }
-        }
     }
 
     public void initSideMenu () {
