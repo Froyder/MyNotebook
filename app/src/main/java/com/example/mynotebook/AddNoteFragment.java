@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ public class AddNoteFragment extends Fragment {
     TextView tV;
     EditText addName, addText;
     MyViewModel model;
+    FragmentManager fM;
 
     public AddNoteFragment() {
         // Required empty public constructor
@@ -36,6 +38,7 @@ public class AddNoteFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_add_note, container, false);
+        fM = getParentFragmentManager();
         addButton = rootView.findViewById(R.id.add_note_button);
         addButton.setOnClickListener(addButtonListener);
         tV = rootView.findViewById(R.id.add_note_name_tV);
@@ -49,7 +52,10 @@ public class AddNoteFragment extends Fragment {
         @Override
         public void onClick(View v) {
             model.addNote(addName.getText().toString(), addText.getText().toString());
-            tV.setText("Добавлено!");
+            fM.beginTransaction()
+                    .replace(R.id.container, new ListFragment())
+                    .addToBackStack(null)
+                    .commit();
         }
     };
 

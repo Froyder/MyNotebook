@@ -101,41 +101,5 @@ public class ListFragment extends Fragment {
             }
         });
 
-        /*
-        MyViewModel model = new ViewModelProvider(requireActivity()).get(MyViewModel.class);
-        model.getNotes().observe(getActivity(), new Observer<List<Note>>() {
-            @Override
-            public void onChanged(List<Note> notes) {
-
-                layoutView = view.findViewById(R.id.list_layout);
-                layoutView.removeAllViews();
-
-                for (Note note : notes){
-
-                    View listView = LayoutInflater.from(requireContext()).inflate(R.layout.item_note, layoutView, false);
-                    ImageView image = listView.findViewById(R.id.image);
-                    image.setImageResource(R.drawable.ic_launcher_foreground);
-
-                    TextView title = listView.findViewById(R.id.note_name);
-                    title.setText(note.getNoteNameString());
-
-                    title.setTextSize(20);
-                    layoutView.addView(listView);
-
-                    listView.setOnClickListener(v -> openDetails(note));
-                }
-            }
-        });
-        */
     }
-
-    /*
-    public void openDetails(Note note) {
-        if (onNoteClicked != null) {
-            onNoteClicked.onNoteClicked(note);
-        }
-    }
-
-     */
-
 }

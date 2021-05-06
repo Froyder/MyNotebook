@@ -15,7 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity implements ListFragment.OnNoteClicked {
+public class MainActivity extends AppCompatActivity {
 
     boolean isLandscape;
     FragmentManager fM;
@@ -84,26 +84,26 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnNo
         setSupportActionBar(toolbar);
         initSideMenu();
 
-            if (!isLandscape) {
-                Fragment fragment = fM.findFragmentById(R.id.container);
+        if (!isLandscape) {
+            Fragment fragment = fM.findFragmentById(R.id.container);
 
-                if (fragment == null) {
-                    fM.beginTransaction()
-                            .replace(R.id.container, new ListFragment())
-                            .commit();
-                }
-            } else {
-                Fragment fragment = fM.findFragmentById(R.id.list_container);
-                if (fragment == null) {
-
-                    fM.beginTransaction()
-                            .replace(R.id.list_container, new ListFragment())
-                            .commit();
-                }
+            if (fragment == null) {
+                fM.beginTransaction()
+                        .replace(R.id.container, new ListFragment())
+                        .commit();
             }
+        } else {
+            Fragment fragment = fM.findFragmentById(R.id.list_container);
+            if (fragment == null) {
+
+                fM.beginTransaction()
+                        .replace(R.id.list_container, new ListFragment())
+                        .commit();
+            }
+        }
     }
 
-    public void initSideMenu () {
+    public void initSideMenu() {
         final DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar,
@@ -153,23 +153,5 @@ public class MainActivity extends AppCompatActivity implements ListFragment.OnNo
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    public void onNoteClicked(Note note) {
-
-        if (isLandscape) {
-            fM.beginTransaction()
-                    .replace(R.id.text_container, TextFragment.newInstance(note))
-                    .addToBackStack(null)
-                    .commit();
-
-        } else {
-            fM.beginTransaction()
-                    .replace(R.id.container, TextFragment.newInstance(note))
-                    .addToBackStack(null)
-                    .commit();
-        }
-
     }
 }
