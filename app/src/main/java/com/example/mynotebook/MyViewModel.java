@@ -22,4 +22,14 @@ public class MyViewModel extends ViewModel {
         noteData.postValue(notesRepository.getNotes());
     }
 
+    public void changeNote (Note note, String name, String text) {
+        notesRepository.changeNote(note, name, text);
+        noteData.postValue(notesRepository.getNotes());
+    }
+
+    public void deleteNote (Note note) {
+        notesRepository.deleteNote(note);
+        noteData.postValue(notesRepository.getNotes());
+    }
+
 }

@@ -40,8 +40,10 @@ public class AddNoteFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_add_note, container, false);
         fM = getParentFragmentManager();
+
         addButton = rootView.findViewById(R.id.add_note_button);
         addButton.setOnClickListener(addButtonListener);
+
         tV = rootView.findViewById(R.id.add_note_name_tV);
         addName = rootView.findViewById(R.id.add_note_name_eT);
         addText = rootView.findViewById(R.id.add_note_text_eT);
@@ -58,6 +60,7 @@ public class AddNoteFragment extends Fragment {
             try {
                 inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
             } catch (Exception e) {
+                e.fillInStackTrace();
             }
 
             model.addNote(addName.getText().toString(), addText.getText().toString());
@@ -71,5 +74,6 @@ public class AddNoteFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
     }
 }

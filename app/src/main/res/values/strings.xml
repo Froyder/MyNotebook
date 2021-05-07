@@ -35,6 +35,9 @@
     <string name="text_hint">Добавьте текст заметки</string>
     <string name="new_note">Новая заметка</string>
     <string name="new_note_header">Новая заметка</string>
+    <string name="save_note">Сохранить изменения</string>
+    <string name="chamge_note_header">Изменить заметку</string>
+    <string name="delete_note">Удалить заметку</string>
 
     <string-array name="side_menu">
         <item>Добавить заметку</item>

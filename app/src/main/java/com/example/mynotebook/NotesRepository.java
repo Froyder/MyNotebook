@@ -22,4 +22,15 @@ public class NotesRepository {
     public void addNote(String name, String text) {
         notes.add(new Note(name, text));
     }
+
+    public void changeNote (Note note, String name, String text) {
+        if (notes.contains(note)) {
+            notes.set(notes.indexOf(note), (new Note(name, text)));
+        }
+    }
+
+    public void deleteNote (Note note) {
+            notes.remove(note);
+    }
+
 }
