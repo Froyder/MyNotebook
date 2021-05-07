@@ -25,10 +25,6 @@ public class ListFragment extends Fragment {
     boolean isLandscape;
     FragmentManager fM;
 
-    public interface OnNoteClicked {
-        void onNoteClicked (Note note);
-    }
-
     private OnNoteClicked onNoteClicked;
 
     @Override
@@ -39,6 +35,10 @@ public class ListFragment extends Fragment {
             onNoteClicked = (OnNoteClicked) context;
         }
 
+    }
+
+    public interface OnNoteClicked {
+        void onNoteClicked (Note note);
     }
 
     @Override
@@ -75,13 +75,13 @@ public class ListFragment extends Fragment {
 
         MyViewModel model = new ViewModelProvider(requireActivity()).get(MyViewModel.class);
 
-        model.getNotes().observe(getActivity(), new Observer<List<Note>>() {
-            @Override
-            public void onChanged (List<Note> notes) {
-                adapter.addData(notes);
-                adapter.notifyDataSetChanged();
-            }
-        });
+            model.getNotes().observe(getActivity(), new Observer<List<Note>>() {
+                @Override
+                public void onChanged (List<Note> notes) {
+                    adapter.addData(notes);
+                    adapter.notifyDataSetChanged();
+                }
+            });
 
         adapter.setClickListener(new NotesAdapter.OnNoteClicked() {
             @Override

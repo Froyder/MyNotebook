@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
         model = new ViewModelProvider(this).get(MyViewModel.class);
 
         initView();
-
     }
 
     @Override

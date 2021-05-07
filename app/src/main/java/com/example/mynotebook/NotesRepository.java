@@ -9,10 +9,14 @@ public class NotesRepository {
 
     public List<Note> getNotes() {
         if (notes.isEmpty()) {
-            notes.add(new Note("Al", "Some 1 text"));
-            notes.add(new Note("A2", "Some 2 text"));
-            notes.add(new Note("A3", "Some 3 text"));
-            notes.add(new Note("A4", "Some 4 text"));
+            notes.add(new Note("First note", "Some 1 text"));
+            notes.add(new Note("Second note", "Some 2 text"));
+            notes.add(new Note("Third note", "Some 3 text"));
+            notes.add(new Note("Fourth note", "Some 4 text"));
+            notes.add(new Note("Fifth note", "Some 5 text"));
+            notes.add(new Note("Sixth note", "Some 6 text"));
+            notes.add(new Note("Seventh note", "Some 7 text"));
+            notes.add(new Note("Eighth note", "Some 8 text"));
 
             return notes;
         }
