@@ -41,4 +41,8 @@ public class NotesRepository {
         notes.remove(position);
     }
 
+    public Note openNote (int position) {
+        return notes.get(position);
+    }
+
 }

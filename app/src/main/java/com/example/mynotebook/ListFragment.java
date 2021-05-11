@@ -87,10 +87,14 @@ public class ListFragment extends Fragment {
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         MyViewModel model = new ViewModelProvider(requireActivity()).get(MyViewModel.class);
         int position = adapter.getMenuPosition();
+        Note note = model.openNote(position);
 
         switch (item.getItemId()){
             case R.id.context_update:
-
+                fM.beginTransaction()
+                        .replace(R.id.container, TextFragment.newInstance(note))
+                        .addToBackStack(null)
+                        .commit();
 
             case R.id.context_delete:
                 model.removeNote(position);
@@ -121,7 +125,6 @@ public class ListFragment extends Fragment {
                             .replace(R.id.text_container, TextFragment.newInstance(note))
                             .addToBackStack(null)
                             .commit();
-
                 } else {
                     fM.beginTransaction()
                             .replace(R.id.container, TextFragment.newInstance(note))
