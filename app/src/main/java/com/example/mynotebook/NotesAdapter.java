@@ -21,7 +21,6 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
     private final Fragment fragment;
     private int menuPosition;
 
-
     public void addData(List<Note> toAdd) {
         notes.clear();
         notes.addAll(toAdd);
@@ -50,7 +49,6 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
 
     }
 
-
     @Override
     public int getItemCount() {
         return notes.size();
@@ -67,13 +65,12 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
     class NotesViewHolder extends RecyclerView.ViewHolder {
 
         TextView name;
-        TextView text;
         ImageView image;
 
-        public NotesViewHolder(@NonNull final View itemView) {
+        public NotesViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            registerContextMenu(itemView);
+            fragment.registerForContextMenu(itemView);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -85,13 +82,6 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
             name = itemView.findViewById(R.id.note_name);
             image = itemView.findViewById(R.id.image);
 
-        }
-    }
-
-    private void registerContextMenu(@NonNull View itemView) {
-        if (fragment != null){
-            menuPosition = getMenuPosition();
-            fragment.registerForContextMenu(itemView);
         }
     }
 

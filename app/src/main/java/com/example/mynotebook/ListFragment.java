@@ -79,8 +79,7 @@ public class ListFragment extends Fragment {
     @Override
     public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater = requireActivity().getMenuInflater();
-        inflater.inflate(R.menu.context_menu, menu);
+        requireActivity().getMenuInflater().inflate(R.menu.context_menu, menu);
     }
 
     @Override
@@ -89,14 +88,14 @@ public class ListFragment extends Fragment {
         int position = adapter.getMenuPosition();
         Note note = model.openNote(position);
 
-        switch (item.getItemId()){
-            case R.id.context_update:
-                fM.beginTransaction()
-                        .replace(R.id.container, TextFragment.newInstance(note))
-                        .addToBackStack(null)
-                        .commit();
+        if (item.getItemId() == R.id.context_update) {
 
-            case R.id.context_delete:
+            fM.beginTransaction()
+                    .replace(R.id.container, TextFragment.newInstance(note))
+                    .addToBackStack(null)
+                    .commit();
+        }
+        else if (item.getItemId() == R.id.context_delete){
                 model.removeNote(position);
                 adapter.notifyItemRemoved(position);
                 return true;
