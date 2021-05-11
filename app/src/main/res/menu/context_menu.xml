@@ -3,7 +3,7 @@
     <item
         android:id="@+id/context_update"
         android:orderInCategory="10"
-        android:title="@string/chamge_note_header"/>
+        android:title="@string/change_note_header"/>
     <item
         android:id="@+id/context_delete"
         android:orderInCategory="20"
