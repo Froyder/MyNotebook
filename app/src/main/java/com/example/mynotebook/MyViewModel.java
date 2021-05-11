@@ -32,4 +32,13 @@ public class MyViewModel extends ViewModel {
         noteData.postValue(notesRepository.getNotes());
     }
 
+    public void removeNote (int position) {
+        notesRepository.removeNote(position);
+        noteData.postValue(notesRepository.getNotes());
+    }
+
+    public Note openNote (int position) {
+        return notesRepository.openNote(position);
+    }
+
 }

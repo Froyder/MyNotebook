@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,14 +15,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHolder> {
-    
 
     private final List<Note> notes = new ArrayList<>();
     private OnNoteClicked clickListener;
+    private final Fragment fragment;
+    private int menuPosition;
+
 
     public void addData(List<Note> toAdd) {
         notes.clear();
         notes.addAll(toAdd);
+    }
+
+    public NotesAdapter(Fragment fragment) {
+        this.fragment = fragment;
+    }
+
+    public int getMenuPosition() {
+        return menuPosition;
     }
 
     @NonNull
@@ -59,17 +70,28 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
         TextView text;
         ImageView image;
 
-        public NotesViewHolder(@NonNull View itemView) {
+        public NotesViewHolder(@NonNull final View itemView) {
             super(itemView);
+
+            registerContextMenu(itemView);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    menuPosition = getLayoutPosition();
                     getClickListener().onNoteClicked(notes.get(getBindingAdapterPosition()));
                 }
             });
             name = itemView.findViewById(R.id.note_name);
             image = itemView.findViewById(R.id.image);
+
+        }
+    }
+
+    private void registerContextMenu(@NonNull View itemView) {
+        if (fragment != null){
+            menuPosition = getMenuPosition();
+            fragment.registerForContextMenu(itemView);
         }
     }
 

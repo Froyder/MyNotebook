@@ -1,10 +1,15 @@
 package com.example.mynotebook;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
@@ -24,6 +29,7 @@ public class ListFragment extends Fragment {
     RecyclerView notesList;
     boolean isLandscape;
     FragmentManager fM;
+    MyViewModel model;
 
     private OnNoteClicked onNoteClicked;
 
@@ -55,7 +61,7 @@ public class ListFragment extends Fragment {
 
         fM = getParentFragmentManager();
         isLandscape = getResources().getBoolean(R.bool.isLandscape);
-        adapter = new NotesAdapter();
+        adapter = new NotesAdapter(this);
         notesList = rootView.findViewById(R.id.notes_list);
         RecyclerView.LayoutManager lm = /*new GridLayoutManager(this, 2);*/new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         notesList.setLayoutManager(lm);
@@ -68,6 +74,34 @@ public class ListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initList(view);
+    }
+
+    @Override
+    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = requireActivity().getMenuInflater();
+        inflater.inflate(R.menu.context_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        MyViewModel model = new ViewModelProvider(requireActivity()).get(MyViewModel.class);
+        int position = adapter.getMenuPosition();
+        Note note = model.openNote(position);
+
+        switch (item.getItemId()){
+            case R.id.context_update:
+                fM.beginTransaction()
+                        .replace(R.id.container, TextFragment.newInstance(note))
+                        .addToBackStack(null)
+                        .commit();
+
+            case R.id.context_delete:
+                model.removeNote(position);
+                adapter.notifyItemRemoved(position);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     // создаём список заметок из репозитория
