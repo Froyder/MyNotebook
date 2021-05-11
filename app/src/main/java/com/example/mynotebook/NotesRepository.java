@@ -37,4 +37,8 @@ public class NotesRepository {
             notes.remove(note);
     }
 
+    public void removeNote (int position) {
+        notes.remove(position);
+    }
+
 }
