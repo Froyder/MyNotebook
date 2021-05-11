@@ -18,7 +18,7 @@ tools:context=".AddNoteFragment">
     android:gravity="center_horizontal"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    android:text="@string/chamge_note_header"/>
+    android:text="@string/change_note_header"/>
 
 <EditText
     android:id="@+id/note_name"
