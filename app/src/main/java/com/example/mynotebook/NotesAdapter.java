@@ -1,6 +1,8 @@
 package com.example.mynotebook;
 
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -8,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,6 +23,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
     private OnNoteClicked clickListener;
     private final Fragment fragment;
     private int menuPosition;
+    NotesAdapter adapter;
 
     public void addData(List<Note> toAdd) {
         notes.clear();
@@ -44,9 +48,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
     @Override
     public void onBindViewHolder(@NonNull NotesViewHolder holder, int position) {
         Note note = notes.get(position);
-        holder.name.setText(note.getNoteNameString());
-        holder.image.setImageResource(R.drawable.ic_baseline_android_24);
-
+        holder.bind(note, position);
     }
 
     @Override
@@ -62,30 +64,63 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
         this.clickListener = clickListener;
     }
 
-    class NotesViewHolder extends RecyclerView.ViewHolder {
+    class NotesViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener, View.OnClickListener,
+            MenuItem.OnMenuItemClickListener {
 
-        TextView name;
-        ImageView image;
+        Note note;
+        private final TextView name;
+        private final ImageView image;
+        private Fragment fragment;
+        NotesAdapter adapter;
+        FragmentManager fM;
 
         public NotesViewHolder(@NonNull View itemView) {
             super(itemView);
-
-            fragment.registerForContextMenu(itemView);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    menuPosition = getLayoutPosition();
-                    getClickListener().onNoteClicked(notes.get(getBindingAdapterPosition()));
-                }
-            });
+            itemView.setOnClickListener(this);
+            itemView.setOnCreateContextMenuListener(this);
             name = itemView.findViewById(R.id.note_name);
             image = itemView.findViewById(R.id.image);
+        }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v,
+                                        ContextMenu.ContextMenuInfo menuInfo) {
+            MenuItem changeNote = menu.add(0, 0, 0, "Изменить заметку");
+            MenuItem deleteNote = menu.add(0, 1, 0, "Удалить заметку");
+            changeNote.setOnMenuItemClickListener(this);
+            deleteNote.setOnMenuItemClickListener(this);
+        }
+
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+
+            switch (item.getItemId()) {
+                case 0:
+
+                    return true;
+                case 1:
+
+                default:
+                    return true;
+            }
+        }
+
+            public void bind (Note note, int position) {
+                name.setText(note.getNoteNameString());
+                image.setImageResource(R.drawable.ic_baseline_android_24);
+                itemView.setOnClickListener(v -> getClickListener().onNoteClicked(note));
+                menuPosition = position;
+        }
+
+        @Override
+        public void onClick(View v) {
 
         }
     }
 
-    interface OnNoteClicked {
+        interface OnNoteClicked {
         void onNoteClicked(Note note);
-    }
+        }
 }
+
+

@@ -56,8 +56,10 @@ public class TextFragment extends Fragment {
             deleteButton.setOnClickListener(deleteButtonListener);
 
             note = getArguments().getParcelable(ARG_NOTE);
-            editName.setText(note.getNoteNameString());
-            editText.setText(note.getNoteTextString());
+            if (note != null) {
+                editName.setText(note.getNoteNameString());
+                editText.setText(note.getNoteTextString());
+            }
 
         return rootView;
     }
@@ -68,11 +70,13 @@ public class TextFragment extends Fragment {
     }
 
     public View.OnClickListener changeButtonListener = (v -> {
-
         Activity activity = getActivity();
-        InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
         try {
-            inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
+            InputMethodManager inputMethodManager;
+            if (activity != null) {
+                inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
+            }
         } catch (Exception e) {
             e.fillInStackTrace();
         }
@@ -85,11 +89,13 @@ public class TextFragment extends Fragment {
     });
 
     public View.OnClickListener deleteButtonListener = (v -> {
-
         Activity activity = getActivity();
-        InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
         try {
-            inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
+            InputMethodManager inputMethodManager;
+            if (activity != null) {
+                inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+                inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
+            }
         } catch (Exception e) {
             e.fillInStackTrace();
         }

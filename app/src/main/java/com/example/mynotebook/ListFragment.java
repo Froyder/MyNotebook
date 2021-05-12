@@ -76,33 +76,6 @@ public class ListFragment extends Fragment {
         initList(view);
     }
 
-    @Override
-    public void onCreateContextMenu(@NonNull ContextMenu menu, @NonNull View v, @Nullable ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        requireActivity().getMenuInflater().inflate(R.menu.context_menu, menu);
-    }
-
-    @Override
-    public boolean onContextItemSelected(@NonNull MenuItem item) {
-        MyViewModel model = new ViewModelProvider(requireActivity()).get(MyViewModel.class);
-        int position = adapter.getMenuPosition();
-        Note note = model.openNote(position);
-
-        if (item.getItemId() == R.id.context_update) {
-
-            fM.beginTransaction()
-                    .replace(R.id.container, TextFragment.newInstance(note))
-                    .addToBackStack(null)
-                    .commit();
-        }
-        else if (item.getItemId() == R.id.context_delete){
-                model.removeNote(position);
-                adapter.notifyItemRemoved(position);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
     // создаём список заметок из репозитория
     private void initList(View view) {
 
