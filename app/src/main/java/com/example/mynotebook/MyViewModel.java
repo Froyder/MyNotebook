@@ -31,7 +31,7 @@ public class MyViewModel extends ViewModel {
     }
 
     public LiveData<List<Note>> getNotes() {
-        noteData.postValue(notesRepositoryLocal.getNotes());
+        //noteData.postValue(notesRepositoryLocal.getNotes());
         return noteData;
     }
 

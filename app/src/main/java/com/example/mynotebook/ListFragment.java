@@ -21,6 +21,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListFragment extends Fragment {
@@ -78,6 +79,13 @@ public class ListFragment extends Fragment {
 
         model.requestNotes();
 
+            model.getNotes().observe(getActivity(), new Observer<List<Note>>() {
+                @Override
+                public void onChanged (List<Note> notes) {
+                    adapter.addData(notes);
+                    adapter.notifyDataSetChanged();
+                }
+            });
 
         adapter.setClickListener(new NotesAdapter.OnNoteClicked() {
             @Override
