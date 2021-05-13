@@ -5,12 +5,42 @@ import android.os.Parcelable;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Objects;
 
 public class Note implements Parcelable {
 
     private int noteName;
     private int noteText;
-    Calendar noteDate;
+    private Date createdAt;
+    private String id;
+    private String imgURL;
+    private String title;
+
+    public Note(String id, String title, String imgURL, Date createdAt) {
+        this.id = id;
+        this.title = title;
+        this.imgURL = imgURL;
+        this.createdAt = createdAt;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Note note = (Note) o;
+        return Objects.equals(id, note.id) &&
+                Objects.equals(title, note.title) &&
+                Objects.equals(imgURL, note.imgURL) &&
+                Objects.equals(createdAt, note.createdAt)
+                ;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, imgURL, createdAt);
+    }
 
     public String getNoteNameString() {
         return noteNameString;
@@ -43,6 +73,10 @@ public class Note implements Parcelable {
     protected Note(Parcel in) {
         noteName = in.readInt();
         noteText = in.readInt();
+        id = in.readString();
+        title = in.readString();
+        imgURL = in.readString();
+        createdAt = (Date) in.readSerializable();
     }
 
     public static final Creator<Note> CREATOR = new Creator<Note>() {
@@ -65,14 +99,10 @@ public class Note implements Parcelable {
         return noteText;
     }
 
-    public Calendar getNoteDate() {
-        return noteDate;
-    }
-
-    public Note (int noteName, int noteText, Calendar noteDate) {
+    public Note (int noteName, int noteText, Date createdAt) {
         this.noteName = noteName;
         this.noteText = noteText;
-        this.noteDate = noteDate;
+        this.createdAt = createdAt;
     }
 
     @Override
@@ -84,5 +114,9 @@ public class Note implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(noteName);
         dest.writeInt(noteText);
+        dest.writeString(id);
+        dest.writeString(title);
+        dest.writeString(imgURL);
+        dest.writeSerializable(createdAt);
     }
 }

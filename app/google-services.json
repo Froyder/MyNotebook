@@ -1,33 +1,41 @@
 {
   "project_info": {
-    "project_number": "1007849824385",
-    "project_id": "mynotebook-edb7c",
-    "storage_bucket": "mynotebook-edb7c.appspot.com"
+    "project_number": "676928698372",
+    "project_id": "mynotebook-200ed",
+    "storage_bucket": "mynotebook-200ed.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1007849824385:android:99bef2d446ba348d482d80",
+        "mobilesdk_app_id": "1:676928698372:android:9ed7ef7e443187a02bdd51",
         "android_client_info": {
           "package_name": "com.example.mynotebook"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1007849824385-9hm7bvja2e8u2lm19lnoni97flch9v1h.apps.googleusercontent.com",
+          "client_id": "676928698372-1d30r2dqd6duhie9ikqlejcistp742ot.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mynotebook",
+            "certificate_hash": "09c261b1065e06b1d47e903b8fad43e09224baaa"
+          }
+        },
+        {
+          "client_id": "676928698372-h0tl2gekob4cihhqvm21f7bvv589srj5.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBQLqPFk7G2x5a0KvTJMW5wvCVY4QeEVJo"
+          "current_key": "AIzaSyBcIt4FxaXlB0YH0QZo3TkiN66R7rPeSB8"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1007849824385-9hm7bvja2e8u2lm19lnoni97flch9v1h.apps.googleusercontent.com",
+              "client_id": "676928698372-h0tl2gekob4cihhqvm21f7bvv589srj5.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

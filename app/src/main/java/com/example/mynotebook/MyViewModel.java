@@ -4,41 +4,59 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MyViewModel extends ViewModel {
 
-    NotesRepository notesRepository = new NotesRepository();
+    NotesRepository repository = new FirestoreNotesRepository();
+    NotesRepositoryLocal notesRepositoryLocal = new NotesRepositoryLocal();
     MutableLiveData<List<Note>> noteData = new MutableLiveData<>();
 
+    public LiveData<List<Note>> getNotesLiveData() {
+        return noteData;
+    }
+
+    public void requestNotes() {
+        repository.getNotes(new Callback<List<Note>>() {
+            @Override
+            public void onSuccess(List<Note> value) {
+                noteData.setValue(value);
+            }
+
+            @Override
+            public void onError(Throwable error) {
+
+            }
+        });
+    }
+
     public LiveData<List<Note>> getNotes() {
-        noteData.postValue(notesRepository.getNotes());
+        noteData.postValue(notesRepositoryLocal.getNotes());
         return noteData;
     }
 
     public void addNote (String name, String text) {
-        notesRepository.addNote(name, text);
-        noteData.postValue(notesRepository.getNotes());
+        notesRepositoryLocal.addNote(name, text);
+        noteData.postValue(notesRepositoryLocal.getNotes());
     }
 
     public void changeNote (Note note, String name, String text) {
-        notesRepository.changeNote(note, name, text);
-        noteData.postValue(notesRepository.getNotes());
+        notesRepositoryLocal.changeNote(note, name, text);
+        noteData.postValue(notesRepositoryLocal.getNotes());
     }
 
     public void deleteNote (Note note) {
-        notesRepository.deleteNote(note);
-        noteData.postValue(notesRepository.getNotes());
+        notesRepositoryLocal.deleteNote(note);
+        noteData.postValue(notesRepositoryLocal.getNotes());
     }
 
     public void removeNote (int position) {
-        notesRepository.removeNote(position);
-        noteData.postValue(notesRepository.getNotes());
+        notesRepositoryLocal.removeNote(position);
+        noteData.postValue(notesRepositoryLocal.getNotes());
     }
 
     public Note openNote (int position) {
-        return notesRepository.openNote(position);
+        return notesRepositoryLocal.openNote(position);
     }
 
 }

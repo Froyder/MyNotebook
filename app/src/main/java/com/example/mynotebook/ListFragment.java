@@ -73,13 +73,10 @@ public class ListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initList(view);
-    }
-
-    // создаём список заметок из репозитория
-    private void initList(View view) {
 
         MyViewModel model = new ViewModelProvider(requireActivity()).get(MyViewModel.class);
+
+        model.requestNotes();
 
             model.getNotes().observe(getActivity(), new Observer<List<Note>>() {
                 @Override
@@ -106,6 +103,5 @@ public class ListFragment extends Fragment {
                 }
             }
         });
-
     }
 }
