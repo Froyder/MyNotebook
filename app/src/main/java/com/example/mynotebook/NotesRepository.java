@@ -8,7 +8,8 @@ public interface NotesRepository {
 
     void addNote(String title, String imageUrl, String text, Callback<Note> callback);
 
-    void remove (Note item, Callback <Object> callback);
+    void changeNote (Note note, String name, String text, Callback<Object> callback);
 
+    void deleteNote (Note item, Callback <Object> callback);
 
 }

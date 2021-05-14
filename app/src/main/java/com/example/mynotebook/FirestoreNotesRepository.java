@@ -83,7 +83,49 @@ public class FirestoreNotesRepository implements NotesRepository {
     }
 
     @Override
-    public void remove(Note item, Callback<Object> callback) {
+    public void changeNote(Note note, String title, String text, Callback<Object> callback) {
+
+        HashMap<String, Object> data = new HashMap<>();
+        Date date = new Date();
+        data.put(TITLE, title);
+        data.put(CREATED, date);
+        data.put(TEXT, text);
+
+        fireStore.collection(NOTES)
+                .document(note.getId())
+                .update(data)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+                if (task.isSuccessful()) {
+                    callback.onSuccess(new Object());
+                } else {
+                    callback.onError(task.getException());
+                }
+
+            }
+        });
+    }
+
+    @Override
+    public void deleteNote(Note note, Callback<Object> callback) {
+        fireStore.collection(NOTES)
+                .document(note.getId())
+                .delete()
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+                        if (task.isSuccessful()) {
+                            callback.onSuccess(new Object());
+                        } else {
+                            callback.onError(task.getException());
+                        }
+
+                    }
+                });
 
     }
+
 }

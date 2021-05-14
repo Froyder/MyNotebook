@@ -14,7 +14,13 @@ public class MockNotesRepository implements NotesRepository {
     }
 
     @Override
-    public void remove(Note item, Callback<Object> callback) {
+    public void changeNote(Note note, String name, String text, Callback<Object> callback) {
 
     }
+
+    @Override
+    public void deleteNote(Note item, Callback<Object> callback) {
+
+    }
+
 }

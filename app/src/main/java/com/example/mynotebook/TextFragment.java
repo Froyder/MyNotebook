@@ -15,7 +15,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class TextFragment extends Fragment {
@@ -27,6 +31,8 @@ public class TextFragment extends Fragment {
     Note note;
 
     private static final String ARG_NOTE = "ARG_NOTE";
+    MutableLiveData<List<Note>> noteData = new MutableLiveData<>();
+    private final NotesRepository repository = new FirestoreNotesRepository();
 
     public TextFragment() {
 
@@ -81,11 +87,35 @@ public class TextFragment extends Fragment {
             e.fillInStackTrace();
         }
 
-        model.changeNote(note, editName.getText().toString(), editText.getText().toString());
-        fM.beginTransaction()
-                .replace(R.id.container, new ListFragment())
-                .addToBackStack(null)
-                .commit();
+        // model.changeNote(note, editName.getText().toString(), editText.getText().toString());
+
+        repository.changeNote(note, editName.getText().toString(), editText.getText().toString(), new Callback<Object>() {
+
+            @Override
+            public void onSuccess(Object value) {
+                if (noteData.getValue() != null) {
+
+                    ArrayList<Note> notes = new ArrayList<>(noteData.getValue());
+
+                    noteData.setValue(notes);
+                } else {
+                    ArrayList<Note> notes = new ArrayList<>();
+
+                    noteData.setValue(notes);
+                }
+
+                fM.beginTransaction()
+                        .replace(R.id.container, new ListFragment())
+                        .addToBackStack(null)
+                        .commit();
+            }
+
+            @Override
+            public void onError(Throwable error) {
+
+            }
+        });
+
     });
 
     public View.OnClickListener deleteButtonListener = (v -> {
@@ -100,7 +130,27 @@ public class TextFragment extends Fragment {
             e.fillInStackTrace();
         }
 
-        model.deleteNote(note);
+        repository.deleteNote (note, new Callback<Object>() {
+            @Override
+            public void onSuccess(Object value) {
+
+                if (noteData.getValue()!= null) {
+
+                    ArrayList<Note> notes = new ArrayList<>(noteData.getValue());
+
+                    notes.remove(note);
+
+                    noteData.setValue(notes);
+                }
+            }
+
+            @Override
+            public void onError(Throwable error) {
+
+            }
+
+        });
+
         fM.beginTransaction()
                 .replace(R.id.container, new ListFragment())
                 .addToBackStack(null)
