@@ -86,11 +86,10 @@ public class MainActivity extends AppCompatActivity {
         if (!isLandscape) {
             Fragment fragment = fM.findFragmentById(R.id.container);
 
-            if (fragment == null) {
                 fM.beginTransaction()
-                        .replace(R.id.container, new ListFragment())
+                        .replace(R.id.container, new StartFragment())
                         .commit();
-            }
+
         } else {
             Fragment fragment = fM.findFragmentById(R.id.list_container);
             if (fragment == null) {

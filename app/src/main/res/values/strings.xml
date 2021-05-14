@@ -38,6 +38,8 @@
     <string name="save_note">Сохранить изменения</string>
     <string name="change_note_header">Изменить заметку</string>
     <string name="delete_note">Удалить заметку</string>
+    <string name="continue_">Продолжить...</string>
+    <string name="sign_out">Выйти</string>
 
     <string-array name="side_menu">
         <item>Добавить заметку</item>
