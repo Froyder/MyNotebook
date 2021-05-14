@@ -13,13 +13,45 @@ public class Note implements Parcelable {
     private int noteName;
     private int noteText;
     private Date createdAt;
+
+    public Note(String id, String title, String imgURL, Date date) {
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getImgURL() {
+        return imgURL;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
     private String id;
     private String imgURL;
     private String title;
 
-    public Note(String id, String title, String imgURL, Date createdAt) {
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    private String text;
+
+    public String getText() {
+        return text;
+    }
+
+
+    public Note(String id, String title, String imgURL, String text, Date createdAt) {
         this.id = id;
         this.title = title;
+        this.text = text;
         this.imgURL = imgURL;
         this.createdAt = createdAt;
     }

@@ -1,5 +1,10 @@
 package com.example.mynotebook;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -14,6 +19,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +56,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
     @Override
     public void onBindViewHolder(@NonNull NotesViewHolder holder, int position) {
         Note note = notes.get(position);
-        holder.bind(note, position);
+        holder.bind(note, position, fragment);
     }
 
     @Override
@@ -105,9 +113,11 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
             }
         }
 
-            public void bind (Note note, int position) {
-                name.setText(note.getNoteNameString());
+            public void bind (Note note, int position, Fragment fragment) {
+                name.setText(note.getTitle());
+                //Glide.with(fragment).load(note.getImgURL()).into(image);
                 image.setImageResource(R.drawable.ic_baseline_android_24);
+
                 itemView.setOnClickListener(v -> getClickListener().onNoteClicked(note));
                 menuPosition = position;
         }

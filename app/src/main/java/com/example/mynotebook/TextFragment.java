@@ -57,8 +57,8 @@ public class TextFragment extends Fragment {
 
             note = getArguments().getParcelable(ARG_NOTE);
             if (note != null) {
-                editName.setText(note.getNoteNameString());
-                editText.setText(note.getNoteTextString());
+                editName.setText(note.getTitle());
+                editText.setText(note.getText());
             }
 
         return rootView;
