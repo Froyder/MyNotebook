@@ -1,6 +1,7 @@
 package com.example.mynotebook;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.LiveData;
@@ -20,6 +22,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.content.SharedPreferences;
 
 
 public class TextFragment extends Fragment {
@@ -29,6 +32,8 @@ public class TextFragment extends Fragment {
     MyViewModel model;
     FragmentManager fM;
     Note note;
+
+    private static boolean ifDelete;
 
     private static final String ARG_NOTE = "ARG_NOTE";
     MutableLiveData<List<Note>> noteData = new MutableLiveData<>();
@@ -70,6 +75,14 @@ public class TextFragment extends Fragment {
         return rootView;
     }
 
+    public void dontDelete () {
+        ifDelete = false;
+    }
+
+    public void doDelete () {
+        ifDelete = true;
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -87,7 +100,8 @@ public class TextFragment extends Fragment {
             e.fillInStackTrace();
         }
 
-        // model.changeNote(note, editName.getText().toString(), editText.getText().toString());
+        //model.changeNote(note, editName.getText().toString(), editText.getText().toString());
+
 
         repository.changeNote(note, editName.getText().toString(), editText.getText().toString(), new Callback<Object>() {
 
@@ -120,6 +134,7 @@ public class TextFragment extends Fragment {
 
     public View.OnClickListener deleteButtonListener = (v -> {
         Activity activity = getActivity();
+
         try {
             InputMethodManager inputMethodManager;
             if (activity != null) {
@@ -130,31 +145,37 @@ public class TextFragment extends Fragment {
             e.fillInStackTrace();
         }
 
-        repository.deleteNote (note, new Callback<Object>() {
-            @Override
-            public void onSuccess(Object value) {
+        DeleteFragment dlgBuilder = new DeleteFragment();
+        dlgBuilder.show(getParentFragmentManager(), "transactionTag");
 
-                if (noteData.getValue()!= null) {
+            if (ifDelete) {
+                repository.deleteNote (note, new Callback<Object>() {
+                    @Override
+                    public void onSuccess(Object value) {
 
-                    ArrayList<Note> notes = new ArrayList<>(noteData.getValue());
+                        if (noteData.getValue()!= null) {
 
-                    notes.remove(note);
+                            ArrayList<Note> notes = new ArrayList<>(noteData.getValue());
 
-                    noteData.setValue(notes);
-                }
-            }
+                            notes.remove(note);
 
-            @Override
-            public void onError(Throwable error) {
+                            noteData.setValue(notes);
+                        }
+                    }
 
-            }
+                    @Override
+                    public void onError(Throwable error) {
 
-        });
+                    }
 
-        fM.beginTransaction()
-                .replace(R.id.container, new ListFragment())
-                .addToBackStack(null)
-                .commit();
+                });
+        }
+
+
+//        fM.beginTransaction()
+//                .replace(R.id.container, new ListFragment())
+//                .addToBackStack(null)
+//                .commit();
     });
 
 }

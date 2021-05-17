@@ -1,5 +1,6 @@
 package com.example.mynotebook;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,8 +25,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 
 import com.example.mynotebook.MainActivity;
-//import ru.geekbrains.socialnetwork.Navigation;
-//import ru.geekbrains.socialnetwork.R;
 
 public class StartFragment  extends Fragment {
 
@@ -34,6 +33,7 @@ public class StartFragment  extends Fragment {
     private static final int RC_SIGN_IN = 40404;
     private static final String TAG = "GoogleAuth";
     FragmentManager fM;
+    MainActivity mainActivity;
 
     // Клиент для регистрации пользователя через Google
     private GoogleSignInClient googleSignInClient;
@@ -55,7 +55,7 @@ public class StartFragment  extends Fragment {
         super.onAttach(context);
 
         // Получим навигацию по приложению, чтобы перейти на фрагмент со списком карточек
-        MainActivity activity = (MainActivity)context;
+        mainActivity = (MainActivity)context;
         fM = getParentFragmentManager();
     }
 
@@ -203,6 +203,6 @@ public class StartFragment  extends Fragment {
         buttonSignIn.setEnabled(false);
         continue_.setEnabled(true);
         buttonSingOut.setEnabled(true);
-
+        mainActivity.enableMenu();
     }
 }

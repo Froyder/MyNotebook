@@ -79,13 +79,18 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    void enableMenu() {
+        toolbar.setEnabled(true);
+    }
+
     public void initView() {
         setSupportActionBar(toolbar);
+        toolbar.setEnabled(false);
         initSideMenu();
 
         if (!isLandscape) {
-            Fragment fragment = fM.findFragmentById(R.id.container);
 
+            Fragment fragment = fM.findFragmentById(R.id.container);
                 fM.beginTransaction()
                         .replace(R.id.container, new StartFragment())
                         .commit();

@@ -75,7 +75,7 @@ public class AddNoteFragment extends Fragment {
                 e.fillInStackTrace();
             }
 
-            repository.addNote(addName.getText().toString(), "https://cdn.pixabay.com/photo/2020/06/22/10/40/castle-5328719_1280.jpg", addText.getText().toString(), new Callback<Note>() {
+            repository.addNote(addName.getText().toString(), "https://cdn3.iconfinder.com/data/icons/flat-icons-web/40/Note_Plus-512.png", addText.getText().toString(), new Callback<Note>() {
                 @Override
                 public void onSuccess(Note value) {
                     if (noteData.getValue() != null) {

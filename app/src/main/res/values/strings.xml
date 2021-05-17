@@ -40,6 +40,9 @@
     <string name="delete_note">Удалить заметку</string>
     <string name="continue_">Продолжить...</string>
     <string name="sign_out">Выйти</string>
+    <string name="delete_dialog">Вы уверены?</string>
+    <string name="sure">Уверен!</string>
+    <string name="nope">Нет</string>
 
     <string-array name="side_menu">
         <item>Добавить заметку</item>
